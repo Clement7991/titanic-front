@@ -1,8 +1,22 @@
 import streamlit as st
+from PIL import Image
 import requests
 
+CSS = """
+h1 {
+    color: black;
+}
+.stApp {
+    background-image: url(https://wallpapercave.com/wp/wp3579042.jpg);
+    background-size: cover;
+}
+"""
+
+st.write(f'<style>{CSS}</style>', unsafe_allow_html=True)
+
+
 '''
-# A **titanic** mistake ?
+# **A** titanic **mistake** **?**
 '''
 
 st.markdown("""
@@ -14,13 +28,13 @@ Although you aren't a fan of being on the sea or in the water, you were told thi
 
 But is it ?
 
-Enter your information below to find out whether you are Jack or Rose.
+Enter your information below to find out whether you are likely to suffer Jack's fate or have a warm seat on the plank next to Rose.
 """)
 
 with st.form(key='params_for_api'):
 
     PassengerId = st.number_input('Passenger ID:')
-    ticket_class = st.number_input('Ticket class:')
+    ticket_class = st.selectbox('Class:', ['1', '2', '3'])
     name = st.text_input('Full name:')
     sex = st.selectbox('Sex:', ['male', 'female'])
     age = st.number_input('Age:')
@@ -34,23 +48,30 @@ with st.form(key='params_for_api'):
     st.form_submit_button('Make prediction')
 
 params = dict(
-    PassengerId,
-    ticket_class,
-    name,
-    sex,
-    sibs,
-    parch,
-    ticket_number,
-    ticket_fare,
-    cabine_number,
-    port
+    PassengerId=[PassengerId],
+    ticket_class=[ticket_class],
+    name=[name],
+    sex=[sex],
+    sibs=[sibs],
+    parch=[parch],
+    ticket_number=[ticket_number],
+    ticket_fare=[ticket_fare],
+    cabine_number=[cabine_number],
+    port=[port]
 )
 
-url = 'http://localhost:8000/predict'
-# ?PassengerId={PassengerId}&Pclass={ticket_class}&Name={name}&Sex={name}&Age={age}&Sibs={sibs}&Parch={parch}&Ticket={ticket_number}&Fare={ticket_fare}&Cabin={cabine_number}&Embarked={port}
+url = "http://localhost:8000/predict?PassengerId=346&Pclass=2&Name=Clement%20Robin&Sex=male&Age=36&Sibs=0&Parch=0&Ticket=v214&Fare=56.4&Cabin=B65&Embarked=S"
 
-response= requests.get(url, params)
+response= requests.get(url)
 
 prediction = response.json()
 
-st.header(f'{prediction}')
+if prediction == "Do not board whatever you do!":
+    st.header("I wouldn't board if I were you...")
+    sinking_image = Image.open('titanic_sinking.jpg')
+    st.image(sinking_image, use_column_width=True)
+
+else:
+    st.header('There will be space for you on the safety boat! Welcome aboard!')
+    welcome_image = Image.open('welcome.webp')
+    st.image(welcome_image, use_column_width=True)
