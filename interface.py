@@ -56,7 +56,7 @@ params = dict(
     port=port
 )
 
-url = "https://a-titanic-mistake-yrrvdagiva-ew.a.run.app/predict"
+url = "https://titanic-mistake-yrrvdagiva-ew.a.run.app"
 
 response= requests.get(url, params=params)
 
