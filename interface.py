@@ -33,30 +33,30 @@ Enter your information below to find out whether you are likely to suffer Jack's
 
 with st.form(key='params_for_api'):
 
-    PassengerId = st.number_input('Passenger ID:')
+    # PassengerId = st.number_input('Passenger ID:')
     ticket_class = st.selectbox('Class:', ['1', '2', '3'])
-    name = st.text_input('Full name:')
+    # name = st.text_input('Full name:')
     sex = st.selectbox('Sex:', ['male', 'female'])
     age = st.number_input('Age:')
     sibs = st.number_input('Number of siblings or spouses onboard:')
     parch = st.number_input('Number of parents or children onboard:')
-    ticket_number = st.text_input('Ticket number:')
+    # ticket_number = st.text_input('Ticket number:')
     ticket_fare = st.number_input('Ticket fare:')
-    cabine_number = st.text_input('Cabin number:')
-    port = st.selectbox('Port of embarkation (S, C or Q):', ['S', 'C', 'Q'])
+    # cabine_number = st.text_input('Cabin number:')
+    port = st.selectbox('Port of embarkation (C = Cherbourg, Q = Queenstown, S = Southampton):', ['C', 'Q', 'S'])
 
     st.form_submit_button('Make prediction')
 
 params = dict(
-    PassengerId=[PassengerId],
+    # PassengerId=[PassengerId],
     ticket_class=[ticket_class],
-    name=[name],
+    # name=[name],
     sex=[sex],
     sibs=[sibs],
     parch=[parch],
-    ticket_number=[ticket_number],
+    # ticket_number=[ticket_number],
     ticket_fare=[ticket_fare],
-    cabine_number=[cabine_number],
+    # cabine_number=[cabine_number],
     port=[port]
 )
 
