@@ -48,21 +48,17 @@ with st.form(key='params_for_api'):
     st.form_submit_button('Make prediction')
 
 params = dict(
-    # PassengerId=[PassengerId],
-    ticket_class=[ticket_class],
-    # name=[name],
-    sex=[sex],
-    sibs=[sibs],
-    parch=[parch],
-    # ticket_number=[ticket_number],
-    ticket_fare=[ticket_fare],
-    # cabine_number=[cabine_number],
-    port=[port]
+    ticket_class=ticket_class,
+    sex=sex,
+    sibs=sibs,
+    parch=parch,
+    ticket_fare=ticket_fare,
+    port=port
 )
 
-url = "http://localhost:8000/predict?PassengerId=346&Pclass=2&Name=Clement%20Robin&Sex=male&Age=36&Sibs=0&Parch=0&Ticket=v214&Fare=56.4&Cabin=B65&Embarked=S"
+url = "https://a-titanic-mistake-yrrvdagiva-ew.a.run.app/predict"
 
-response= requests.get(url)
+response= requests.get(url, params=params)
 
 prediction = response.json()
 
