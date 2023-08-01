@@ -62,12 +62,14 @@ response= requests.get(url, params=params)
 
 prediction = response.json()
 
-if prediction == "Do not board whatever you do!":
-    st.header("I wouldn't board if I were you...")
-    sinking_image = Image.open('titanic_sinking.jpg')
-    st.image(sinking_image, use_column_width=True)
+st.header("I wouldn't board if I were you...")
 
-else:
-    st.header('There will be space for you on the safety boat! Welcome aboard!')
-    welcome_image = Image.open('welcome.webp')
-    st.image(welcome_image, use_column_width=True)
+# if prediction == "Do not board whatever you do!":
+#     st.header("I wouldn't board if I were you...")
+#     sinking_image = Image.open('titanic_sinking.jpg')
+#     st.image(sinking_image, use_column_width=True)
+
+# else:
+#     st.header('There will be space for you on the safety boat! Welcome aboard!')
+#     welcome_image = Image.open('welcome.webp')
+#     st.image(welcome_image, use_column_width=True)
